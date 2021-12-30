@@ -1,0 +1,69 @@
+{% load static %}
+<!doctype html>
+<html lang="ja">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- 互換表示の解除 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'AdminLTE-3.1.0/plugins/bootstrap/css/bootstrap.min.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'AdminLTE-3.1.0/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'AdminLTE-3.1.0/plugins/bootstrap-slider/css/bootstrap-slider.min.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'AdminLTE-3.1.0/plugins/bootstrap-switch/css/bootstrap3/bootstrap-switch.min.css' %}"> -->
+    <!-- <link rel="stylesheet" href="{% static 'AdminLTE-3.1.0/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css' %}"> -->
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="{% static 'AdminLTE-3.1.0/plugins/fontawesome-free/css/fontawesome.min.css' %}">
+
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+      <a class="navbar-brand" href="{% url 'accounts:index' %}">テストサイト</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item m-1">
+            <a class="nav-link" href="{% url 'accounts:index' %}">Top</a>
+          </li>
+          {% if not user.is_authenticated %}
+            <li class="nav-item m-1">
+              <a class="nav-link" href="{% url 'accounts:login' %}">Log in</a>
+            </li>
+            <li class="nav-item m-1">
+              <a class="nav-link" href="{% url 'accounts:signup' %}">Sign up</a>
+            </li>
+          {% else %}
+            <li class="nav-item m-1">
+              <a class="nav-link" href="{% url 'accounts:my_page' user.pk %}">My page</a>
+            </li>
+            <li class="nav-item m-1">
+              <a class="nav-link" href="{% url 'accounts:logout' %}">Log out</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    <div class="pl-4 small" style="background-color: #e2e3e5 ; border-bottom: solid 1px #f3f3f3;">
+      {% if not user.is_authenticated %}
+        こんにちは！ ゲスト さん
+      {% else %}
+        こんにちは！ {{ user.username }} さん
+      {% endif %}
+    </div>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{% static 'AdminLTE-3.1.0/plugins/jquery/jquery.slim.min.js' %}"></script>
+    <script src="{% static 'AdminLTE-3.1.0/plugins/popper/umd/popper.min.js' %"></script>
+    <script src="{% static 'AdminLTE-3.1.0/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>
