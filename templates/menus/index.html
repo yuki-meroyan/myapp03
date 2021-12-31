@@ -1,0 +1,9 @@
+{% extends "menus/base.html" %}
+<p>Menus Index Page</p>
+{% for menu in menu_list %}
+<p>
+    {{ menu.menu_number }}
+    <a href="{% url 'menus:index' pk=user.pk %}">{{ menu.menu_name }}</a>
+</p>
+{% endfor %}
+<a href="{% url 'menus:index' %}">戻る</a>

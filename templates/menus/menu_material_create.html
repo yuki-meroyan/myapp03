@@ -1,0 +1,10 @@
+{% extends "menus/base.html" %}
+<p>メニュー登録画面</p>
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+        {{ form.formset.as_table}}
+    </table>
+    <button type="submit">Submit</button>
+</form>
